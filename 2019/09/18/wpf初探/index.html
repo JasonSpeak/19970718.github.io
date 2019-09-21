@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon32.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon64.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon64.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C#,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="wpf初探 Binding  自定义的类想要实现binding的功能，需要实现 INotifyPropertyChanged 接口 数据源：只要是一个对象，并且通过属性( Property )公开自己的数据，就可以作为数据源 binding数据源与控件 this.textboxName.SetBinding(TextBox.TextProperty,new Binding(&amp;quot;Name&amp;q">
+<meta name="keywords" content="C#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wpf初探">
+<meta property="og:url" content="./2019/09/18/wpf初探/index.html">
+<meta property="og:site_name" content="天贶十四 Coding">
+<meta property="og:description" content="wpf初探 Binding  自定义的类想要实现binding的功能，需要实现 INotifyPropertyChanged 接口 数据源：只要是一个对象，并且通过属性( Property )公开自己的数据，就可以作为数据源 binding数据源与控件 this.textboxName.SetBinding(TextBox.TextProperty,new Binding(&amp;quot;Name&amp;q">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-18T13:25:50.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wpf初探">
+<meta name="twitter:description" content="wpf初探 Binding  自定义的类想要实现binding的功能，需要实现 INotifyPropertyChanged 接口 数据源：只要是一个对象，并且通过属性( Property )公开自己的数据，就可以作为数据源 binding数据源与控件 this.textboxName.SetBinding(TextBox.TextProperty,new Binding(&amp;quot;Name&amp;q">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./2019/09/18/wpf初探/">
+
+
+
+
+
+  <title>wpf初探 | 天贶十四 Coding</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天贶十四 Coding</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2019/09/18/wpf初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JasonSpeak">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天贶十四 Coding">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">wpf初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-18T21:24:17+08:00">
+                2019-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术-学习/" itemprop="url" rel="index">
+                    <span itemprop="name">技术&学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/09/18/wpf初探/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/09/18/wpf初探/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="wpf初探"><a href="#wpf初探" class="headerlink" title="wpf初探"></a>wpf初探</h1><hr>
+<h1 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h1><blockquote>
+<ul>
+<li>自定义的类想要实现binding的功能，需要实现 <strong>INotifyPropertyChanged</strong> 接口</li>
+<li>数据源：只要是一个对象，并且通过属性( Property )公开自己的数据，就可以作为数据源</li>
+<li>binding数据源与控件 <code>this.textboxName.SetBinding(TextBox.TextProperty,new Binding(&quot;Name&quot;){Source = stu})</code></li>
+<li>除了在C#代码中Binding，还可以直接在XAML代码中Binding其他控件的属性。</li>
+<li>通常Binding数据的方法有：<ul>
+<li>普通CLR类型的单个对象作为Source，包括.NET Framework 自带类型的对象和用具自定义的对象</li>
+<li>普通CLR集合类型对象作为Source，包括数组，List&lt; T &gt;,  ObservableCollection&lt; T &gt;</li>
+<li>将 ADO.NET 数据对象指定为Source， 包括 DataTable 和 DataView等</li>
+<li>使用 XmlDataProvider 把 xml 数据指定为Source</li>
+<li>将依赖（Dependency Object）指定为Source</li>
+<li>将容器的 DataContext 指定为 Source</li>
+<li>通过ElementName 指定 Source</li>
+<li>通过 Binding的 RelativeSource 属性相对地指定 Source</li>
+<li>将 ObjectDataProvider 对象指定为 Source</li>
+<li>将Linq检索得到的数据对象作为 Source</li>
+</ul>
+</li>
+<li>容器的 DataContext 属性是会被子元素继承的属性。</li>
+</ul>
+</blockquote>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><blockquote>
+<ul>
+<li>依赖属性<ul>
+<li>自己没有值，但是能通过使用binding从数据源获取值得属性</li>
+<li>拥有依赖属性的对象称为依赖对象</li>
+<li>wpf所有UI控件都是依赖对象</li>
+</ul>
+</li>
+<li>在依赖对象中声明依赖属性需要使用 <code>public static readonly</code></li>
+<li>依赖属性已经实现了<code>INotifyPropertyChanged</code>接口</li>
+<li>附加属性<ul>
+<li>附加属性的本质是依赖属性。</li>
+<li>将属性与宿主解耦，让数据类型的设计更加灵活。</li>
+</ul>
+</li>
+<li>??</li>
+</ul>
+</blockquote>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><blockquote>
+<ul>
+<li>CLR事件模型中，分为：<ul>
+<li>事件拥有者</li>
+<li>事件</li>
+<li>事件响应者</li>
+<li>事件处理者</li>
+<li>订阅关系</li>
+</ul>
+</li>
+<li>CLR事件模型的弊端：<ul>
+<li>每队消息是“发送–&gt;相应”关系，必须建立显示的点对点订阅关系。</li>
+<li>事件的宿主必须能够直接访问事件的响应者，不然无法建立订阅关系。</li>
+</ul>
+</li>
+<li>WPF路由事件机制：<ul>
+<li>事件拥有者和事件响应者没有直接的订阅关系</li>
+<li>事件拥有者只负责激发事件，将事件在visual tree中传播</li>
+<li>事件响应者有事件侦听器，当事件传递到该节点时，其事件处理器就会被调用，并决定是否继续传播事件（使用<code>RoutedEventArgs.Handled</code>标记）</li>
+</ul>
+</li>
+<li>可以在cs代码中为控件绑定事件侦听器，也可以在XAML中直接在控件商绑定事件侦听器</li>
+<li>路由事件有三种路由策略：<ul>
+<li>Bubble,冒泡式：路由事件由事件的激发者出发向它的上级容器一层一层路由，直至最外层容器。</li>
+<li>Tunnel，隧道式：由Visual Tree的树根向事件激发控件路由。</li>
+<li>Direct，直达式：模仿CLR直接事件，直接将事件消息送达事件处理器。</li>
+</ul>
+</li>
+<li>附加事件：在非UIElement派生类中注册的路由事件（<code>本质上只算是路由事件的一种用法而非一种新概念</code>）<ul>
+<li>无法自己激发路由事件也无法侦听路由事件</li>
+<li>附加事件路由第一站是激发它的元素</li>
+<li>附加事件一般定义在Binding、Mouse、Keyboard这种全局Helper类中。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><blockquote>
+<ul>
+<li>命令与事件的区别：<ul>
+<li>命令可以约束消息处理代码</li>
+<li>命令可以约束步骤逻辑</li>
+</ul>
+</li>
+<li>命令系统的要素：<ul>
+<li>命令：实现<code>ICommand</code>接口，使用最多的是<code>RoutedCommand</code></li>
+<li>命令源：命令发送者，实现<code>ICommandSource</code>接口（只包含<code>Command</code>、<code>CommandParameter</code>、<code>CommandTarget</code>三个属性）</li>
+<li>命令目标：实现<code>IInputElement</code>接口的类</li>
+<li>命令关联：将外围逻辑与命令关联起来，比如<strong>执行前对命令是否可以执行进行判断，命令执行之后还有哪些后续工作等</strong></li>
+</ul>
+</li>
+<li>使用自定义命令：<ul>
+<li>声明并定义命令</li>
+<li>将命令赋值给命令源（发送者）并<strong>指定快捷键（命令可以方便地指定快捷键）</strong></li>
+<li>指定命令目标   <code>Tips:这一步有没有必要？因为在XAML中声明命令是不需要指定命令目标的</code></li>
+<li>创建命令关联</li>
+<li>将命令关联安置在外围控件上</li>
+</ul>
+</li>
+<li><strong><code>CanExecute</code>事件的激发频率较高，为了尽量避免降低性能，在处理完后需要将<code>e.Handled</code>设置为<code>true</code></strong></li>
+<li><strong>命令关联（CommandBinding</strong>一定要绑定在命令目标的外围控件上，不然无法捕获到<code>CanExecute</code>和<code>Executed</code>等路由事件  </li>
+<li>常用命令库：<ul>
+<li><code>ApplicationCommands</code></li>
+<li><code>ComponentCommands</code></li>
+<li><code>NavigationCommands</code></li>
+<li><code>MediacCommands</code></li>
+<li><code>EditingCommands</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>命令参数：给命令目标传递参数，可以使同一个命令实现不同的操作。</li>
+<li></li>
+</ul>
+</blockquote>
+<h1 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h1><blockquote>
+<ul>
+<li>每个WPF界面元素都有<code>Resources</code>属性，这个属性类型为<code>ResouresDictionary</code>，使用 <strong>键-值</strong> 对的形式存储资源</li>
+<li>静态资源与动态资源<ul>
+<li>静态资源（<code>Static</code>）在程序载入内存时对资源一次性引用，之后就不再访问这个资源。</li>
+<li>动态资源（<code>Dynamic</code>）在程序运行过程中仍然会访问这个资源，在程序运行过程中还有可能修改的资源应该使用<code>DynamciResource</code></li>
+</ul>
+</li>
+<li>在<strong>资源词典</strong>里的资源称为“WPF资源”或者“对象资源”，应用程序内嵌的资源称为“程序集资源”或“二进制资源”</li>
+<li>向WPF中添加二进制资源：<ul>
+<li>如果添加的是字符串而非文件，则可以使用<code>Properties</code>名称空间中的<code>Resources.resx</code>资源文件。该文件也用<strong>键-值</strong>对储存数据。</li>
+<li><strong>为了让XAML编译器能够访问<code>Resources</code>类，一定要把<code>Resources.resx</code>的访问级别由Internal改为Public</strong></li>
+</ul>
+</li>
+<li>使用<code>Resources.resx</code>最大的好处是便于国际化，修改界面中的值直接修改资源即可。</li>
+</ul>
+</blockquote>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><blockquote>
+<ul>
+<li>WPF中控件分为两大类：<ul>
+<li><code>ControlTemplate</code>是算法内容的表现形式，决定了控件的外观，是控件的外衣</li>
+<li><code>DataTemplate</code>是数据内容的表现形式，决定数据的显示样式，是数据的外衣</li>
+</ul>
+</li>
+<li><code>DataTemplate</code>完成了数据驱动界面，常用于三处：<ul>
+<li>ContentControl的ContentTemplate属性，相当于给ContentControl的内容穿外衣。</li>
+<li>ItemsControl的ItemTemplate属性，相当于给ItemControl的数据条目穿衣。</li>
+<li>GridViewColumn的CellTemplate属性，相当于给GridViewColumn单元格里的数据穿衣服。</li>
+</ul>
+</li>
+<li><code>ControlTemplate</code>主要用于两处：<ul>
+<li>更换ControlTemplate改变控件外观，使之具有更优的用户使用体验及外观。</li>
+<li>借助ControlTemplate，程序员与设计师并行工作，先使用标准控件编程，设计完成后只需把新的ControlTemplate应用到程序中即可。</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h1 id="XAML"><a href="#XAML" class="headerlink" title="XAML"></a>XAML</h1><blockquote>
+<ul>
+<li><code>x:Name</code>实例化控件对象的引用变量的名称，方便查找相应控件</li>
+<li><code>x:Key</code>为资源添加用于检索的索引。形成<code>Key-Value</code>键值对。</li>
+<li>LogicalTree：描述了界面的整体框架；WPF大部分特性（属性值继承，事件路由以及样式）都是通过逻辑树进行工作的。</li>
+<li>VisualTree：描述了界面的所有细节；使用样式可以改变视觉树上的元素，可以使用Style.TargetType属性来选择希望修改的特定元素，甚至当空间属性发生变化时，通过触发器自动完成修改。可以为控件创建新的模板。</li>
+</ul>
+</blockquote>
+<h1 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h1><blockquote>
+<ul>
+<li>Grid：网格布局，可以自定义行与列的数量，行高，列宽开调整控件布局。类似以Html中的Table，适用于：<ul>
+<li>UI布局的大框架设计</li>
+<li>大量UI元素需要成行或者成列对齐</li>
+<li>UI整体尺寸改变时，元素需要保持固有的高度和宽度比例</li>
+<li>UI后期可能有焦大的变更或拓展</li>
+</ul>
+</li>
+<li>StackPanel：栈式面板。可将包含的元素在竖直或者水平方向上排成一条直线，移除一个元素后，后排的元素会自动向前移动填补空缺。适用于：<ul>
+<li>同类元素需要紧凑排列</li>
+<li>移除其中的元素后能够自动补缺的布局或者动画</li>
+</ul>
+</li>
+<li>Canvas：画布。内部元素可以使用以像素为单位的绝对坐标（<code>Canvas.X</code>和<code>Canvas.Y</code>）进行定位。适用于：<ul>
+<li>一经设计基本上不会再有改动的小型布局（如：图标）</li>
+<li>艺术性比较强的布局</li>
+<li>需要大量使用横纵坐标进行绝对定位的布局。</li>
+<li>依赖于横纵坐标的动画</li>
+</ul>
+</li>
+<li>DockPanel：泊靠式面板。元素内部可以选择泊靠方向。<ul>
+<li>内部元素根据<code>DockPanel.Dock</code>属性规定的方向泊靠。</li>
+<li><code>LastChildFill</code>属性，默认为True，此时DockPanel内最后一个元素会将内部所有剩余空间充满。</li>
+</ul>
+</li>
+<li>WrapPanel：自动折行面板。内部元素在排满一行后能自动折行，类似Html中的流式布局。</li>
+</ul>
+</blockquote>
+<h1 id="异步修改UI"><a href="#异步修改UI" class="headerlink" title="异步修改UI"></a>异步修改UI</h1><blockquote>
+<ul>
+<li>BackgroundWorker：可以直接使用控件，每一步修改可以直接应用于控件</li>
+<li>Dispatcher：不可以直接使用控件，每一步修改都需要向Dispatcher队列注册。</li>
+</ul>
+</blockquote>
+<h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><blockquote>
+<ul>
+<li>MVVM = Model-View-ViewModel</li>
+<li>Model层负责定义数据，获取数据</li>
+<li>ViewModel层负责逻辑处理，处理Model层的数据，用于View层的数据绑定。</li>
+<li>View层，即XAML代码，负责UI，与ViewModel层绑定。</li>
+<li>从而解耦UI与逻辑，消灭XAML的后台代码。</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    JasonSpeak
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="./2019/09/18/wpf初探/" title="wpf初探">./2019/09/18/wpf初探/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/C-学习-进阶篇/" rel="next" title="C#学习--进阶篇">
+                <i class="fa fa-chevron-left"></i> C#学习--进阶篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JasonSpeak</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/JasonSpeak" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:johnspeak123@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wpf初探"><span class="nav-number">1.</span> <span class="nav-text">wpf初探</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Binding"><span class="nav-number">2.</span> <span class="nav-text">Binding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性"><span class="nav-number">3.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件"><span class="nav-number">4.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令"><span class="nav-number">5.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源"><span class="nav-number">6.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板"><span class="nav-number">7.</span> <span class="nav-text">模板</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XAML"><span class="nav-number">8.</span> <span class="nav-text">XAML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布局"><span class="nav-number">9.</span> <span class="nav-text">布局</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步修改UI"><span class="nav-number">10.</span> <span class="nav-text">异步修改UI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVVM"><span class="nav-number">11.</span> <span class="nav-text">MVVM</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JasonSpeak</span>
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">5.9k</span>
+  
+  <br>
+  <span id="showDays"></span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+
+
+
+
+
+<script>
+    var seconds = 1000;
+    var minutes = seconds * 60;
+    var hours = minutes * 60;
+    var days = hours * 24;
+    var years = days * 365;
+    var birthDay = Date.UTC(2019,09,15,00,00,00); // 这里设置建站时间
+    setInterval(function() {
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        var now = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = now - birthDay;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds);
+        document.getElementById('showDays').innerHTML = "本站已运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+    }, 1000);
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: true,
+        appId: 'leoMQyeDGMe5KTikLPmOSlIf-gzGzoHsz',
+        appKey: 'BMvin7RD4Qpo1GCIJjUPejY8',
+        placeholder: '欢迎留下宝贵的意见~',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":150,"height":345},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
