@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>单文档型数据库对比总结</title>
+      <link href="/2019/11/04/%E5%8D%95%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/"/>
+      <url>/2019/11/04/%E5%8D%95%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h2 id="单文档数据库对比总结"><a href="#单文档数据库对比总结" class="headerlink" title="单文档数据库对比总结"></a>单文档数据库对比总结</h2><h3 id="单文档数据库定义"><a href="#单文档数据库定义" class="headerlink" title="单文档数据库定义"></a>单文档数据库定义</h3><blockquote><ul><li>无服务端，不需要配置服务器也可正常使用</li><li>数据存储在单个文件中，可以随意移动</li></ul></blockquote><h3 id="目标数据库要求"><a href="#目标数据库要求" class="headerlink" title="目标数据库要求"></a>目标数据库要求</h3><blockquote><ul><li>使用方便，尽量少的安装配置步骤</li><li>安全性好，可以对数据库文件进行加密</li><li>开发接口齐全</li><li>客户端使用方便或开发方便</li></ul></blockquote><h3 id="单文档数据库对比"><a href="#单文档数据库对比" class="headerlink" title="单文档数据库对比"></a>单文档数据库对比</h3><table><thead><tr><th>数据库名称</th><th>客户端</th><th>客户端使用难度</th><th>需要安装环境</th><th>需要服务端</th><th>安装包大小</th><th>可加密</th><th>*读写性能</th><th>使用难度</th><th>开发接口</th></tr></thead><tbody><tr><td>LiteDB</td><td>有</td><td>简单</td><td>否</td><td>否</td><td>\</td><td>可加密</td><td>(W)13.643s<br>(R)1ms</td><td>简单</td><td>齐全</td></tr><tr><td>sqlite</td><td>有</td><td>简单</td><td>否</td><td>否</td><td>\</td><td>不可加密</td><td>(W)16.282s<br>(R)13ms</td><td>简单</td><td>齐全</td></tr><tr><td>firebird</td><td>有</td><td>复杂</td><td>是</td><td>是</td><td>9MB</td><td>可加密</td><td>\</td><td>较复杂</td><td>齐全</td></tr><tr><td>Berkeley DB</td><td>否</td><td>\</td><td>否</td><td>否</td><td>\</td><td>可加密</td><td>\</td><td>复杂</td><td>不齐全</td></tr><tr><td>SQL Server CE</td><td>有</td><td>简单</td><td>是</td><td>否</td><td>3MB</td><td>可加密</td><td>(W)24.709s<br>(R)8ms</td><td>简单</td><td>齐全</td></tr></tbody></table><blockquote><ul><li><strong>*读写性能：插入10w条数据，单条数据约5kb；读取10w条数据，单条数据约5kb</strong></li></ul></blockquote><blockquote><ul><li>LiteDB数据库管理器：<a href="https://github.com/julianpaulozzi/LiteDbExplorer" target="_blank" rel="noopener">LiteDbExplorer</a></li><li>sqlite数据库管理器：<a href="https://sqlitestudio.pl/index.rvt" target="_blank" rel="noopener">sqliteStudio</a></li><li>Sql Server CE数据库管理器：sdfViewer注册码：<ul><li>Name: <a href="http://www.cr173.com" target="_blank" rel="noopener">www.cr173.com</a></li><li>key: X8bJCvrXWFtwertpPEBz+Q==</li></ul></li></ul></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术&amp;学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SqlServer查看数据库连接情况</title>
       <link href="/2019/10/31/SqlServer%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%83%85%E5%86%B5/"/>
       <url>/2019/10/31/SqlServer%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%83%85%E5%86%B5/</url>
