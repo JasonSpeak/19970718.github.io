@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>LeetCode-28：KMP算法</title>
+      <link href="/2019/11/09/KMP%E7%AE%97%E6%B3%95%E6%B5%85%E6%9E%90/"/>
+      <url>/2019/11/09/KMP%E7%AE%97%E6%B3%95%E6%B5%85%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><blockquote><ul><li>一种较为高效的字符串查找匹配算法</li><li>算法目的是：在匹配失败时，利用原有的匹配信息，尽量减少重新匹配的次数</li><li>主字符串只遍历一遍，子字符串通过有限状态机进行匹配</li></ul></blockquote><blockquote><ul><li>首先根据子字符串的匹配状态构建有限状态机</li><li>然后可以使用有限状态机对主字符串进行遍历匹配</li></ul></blockquote><p>详情解析<a href="https://leetcode-cn.com/problems/implement-strstr/solution/shen-ru-qian-chu-kmp-suan-fa-yu-ping-jie-by-zohary/" target="_blank" rel="noopener">LeetCodeCN-28题解</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>单文档型数据库对比总结</title>
       <link href="/2019/11/04/%E5%8D%95%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/"/>
       <url>/2019/11/04/%E5%8D%95%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93/</url>
