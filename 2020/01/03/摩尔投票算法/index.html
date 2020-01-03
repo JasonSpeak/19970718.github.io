@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="摩尔投票算法 来源： (LeetCode-169 求众数)[https://leetcode-cn.com/problems/majority-element/] 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityEleme">
+<meta name="description" content="摩尔投票算法 来源： LeetCode-169 求众数 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityElement(int[] nums) &amp;#123;        int countFlag = 0;">
 <meta name="keywords" content="算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="摩尔投票算法">
 <meta property="og:url" content="./2020/01/03/摩尔投票算法/index.html">
 <meta property="og:site_name" content="天贶十四 Coding">
-<meta property="og:description" content="摩尔投票算法 来源： (LeetCode-169 求众数)[https://leetcode-cn.com/problems/majority-element/] 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityEleme">
+<meta property="og:description" content="摩尔投票算法 来源： LeetCode-169 求众数 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityElement(int[] nums) &amp;#123;        int countFlag = 0;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-01-03T06:49:47.074Z">
+<meta property="og:updated_time" content="2020-01-03T09:16:56.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摩尔投票算法">
-<meta name="twitter:description" content="摩尔投票算法 来源： (LeetCode-169 求众数)[https://leetcode-cn.com/problems/majority-element/] 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityEleme">
+<meta name="twitter:description" content="摩尔投票算法 来源： LeetCode-169 求众数 算法描述： 依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。12345678910111213public int MajorityElement(int[] nums) &amp;#123;        int countFlag = 0;">
 
 
 
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  127
+                  120
                 </span>
               
 
@@ -430,7 +430,7 @@
 
       
         <h3 id="摩尔投票算法"><a href="#摩尔投票算法" class="headerlink" title="摩尔投票算法"></a>摩尔投票算法</h3><ul>
-<li>来源： (LeetCode-169 求众数)[<a href="https://leetcode-cn.com/problems/majority-element/]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/majority-element/]</a></li>
+<li>来源： <a href="https://leetcode-cn.com/problems/majority-element/" target="_blank" rel="noopener">LeetCode-169 求众数</a></li>
 <li>算法描述：<ul>
 <li>依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MajorityElement</span>(<span class="params"><span class="keyword">int</span>[] nums</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> countFlag = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (countFlag == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    result = nums[i];</span><br><span class="line">                &#125;</span><br><span class="line">                countFlag += (result == nums[i]) ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
