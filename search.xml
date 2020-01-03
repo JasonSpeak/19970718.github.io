@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>摩尔投票算法</title>
+      <link href="/2020/01/03/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8%E7%AE%97%E6%B3%95/"/>
+      <url>/2020/01/03/%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8%E7%AE%97%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h3 id="摩尔投票算法"><a href="#摩尔投票算法" class="headerlink" title="摩尔投票算法"></a>摩尔投票算法</h3><ul><li>来源： (LeetCode-169 求众数)[<a href="https://leetcode-cn.com/problems/majority-element/]" target="_blank" rel="noopener">https://leetcode-cn.com/problems/majority-element/]</a></li><li>算法描述：<ul><li>依次用数组中2个元素抵消法，相等+1，不等减-1，为0时重新取新的下标元素。这样超过一半的元素肯定是抵消不完的，就直接返回之前赋值的元素即可。<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MajorityElement</span>(<span class="params"><span class="keyword">int</span>[] nums</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> countFlag = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> result = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.Length; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (countFlag == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    result = nums[i];</span><br><span class="line">                &#125;</span><br><span class="line">                countFlag += (result == nums[i]) ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> LeetCode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>站着挣钱</title>
       <link href="/2019/12/06/%E7%AB%99%E7%9D%80%E6%8C%A3%E9%92%B1/"/>
       <url>/2019/12/06/%E7%AB%99%E7%9D%80%E6%8C%A3%E9%92%B1/</url>
